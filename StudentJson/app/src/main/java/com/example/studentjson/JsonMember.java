@@ -7,12 +7,14 @@ public class JsonMember {
     private String name;
     private String dept;
     private String phone;
+    private String image;
 
-    public JsonMember(String code, String name, String dept, String phone) {
+    public JsonMember(String code, String name, String dept, String phone,String image) {
         this.code = code;
         this.name = name;
         this.dept = dept;
         this.phone = phone;
+        this.image=image;
     }
 
     public String getCode() {
@@ -45,5 +47,13 @@ public class JsonMember {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -1,51 +1,61 @@
 package com.example.studentjson;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     String urlAddr="http://192.168.145.42:8080/test/students.json";
-    Button button;
-    ListView listView;
+
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
     ArrayList<JsonMember> students;
-    MemberAdapter adapter;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button=findViewById(R.id.btn_network_con);
-        listView=findViewById(R.id.lv_members);
+        webView=findViewById(R.id.item_image);
+        recyclerView=findViewById(R.id.lv_members);
+        layoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        button.setOnClickListener(onClickListener);
+        try{
+            WebSettings webSettings=webView.getSettings();
+            webSettings.setJavaScriptEnabled(true); // JavaScript 사용 가능
+            webSettings.setBuiltInZoomControls(true); //확대 축소 가능
+            webSettings.setDisplayZoomControls(false); //돋보기 없애기
+
+            NetworkTask networkTask=new NetworkTask(MainActivity.this,urlAddr);
+            Object obj=networkTask.execute().get();
+            students=(ArrayList<JsonMember>) obj;
+
+            adapter=new RecyclerAdapter(MainActivity.this,R.layout.custom_layout,students);
+            recyclerView.setAdapter(adapter);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
-    View.OnClickListener onClickListener=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.btn_network_con:
-                    try{
-                        NetworkTask networkTask=new NetworkTask(MainActivity.this,urlAddr);
-                        Object obj=networkTask.execute().get();
-                        students=(ArrayList<JsonMember>) obj;
-
-                        adapter = new MemberAdapter(MainActivity.this,R.layout.custom_layout,students);
-                        listView.setAdapter(adapter);
-                        button.setText("Results");
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-                    break;
-            }
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if(webView.canGoBack()){
+            webView.goBack();
+        }else{
+            finish();
         }
-    };
+    }
+
 }

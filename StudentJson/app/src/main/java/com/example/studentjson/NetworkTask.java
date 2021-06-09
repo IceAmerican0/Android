@@ -102,9 +102,10 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
                 String code=jsonObject1.getString("code");
                 String dept=jsonObject1.getString("dept");
                 String phone=jsonObject1.getString("phone");
+                String image=jsonObject1.getString("image");
 
 
-                JsonMember member=new JsonMember(code,name,dept,phone);
+                JsonMember member=new JsonMember(code,name,dept,phone,image);
                 members.add(member);
             }
         }catch(Exception e){
