@@ -1,0 +1,2 @@
+rootProject.name = "StudentJson"
+include ':app'
