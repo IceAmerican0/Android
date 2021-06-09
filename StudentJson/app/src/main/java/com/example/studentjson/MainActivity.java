@@ -31,11 +31,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         try{
-            WebSettings webSettings=webView.getSettings();
-            webSettings.setJavaScriptEnabled(true); // JavaScript 사용 가능
-            webSettings.setBuiltInZoomControls(true); //확대 축소 가능
-            webSettings.setDisplayZoomControls(false); //돋보기 없애기
-
             NetworkTask networkTask=new NetworkTask(MainActivity.this,urlAddr);
             Object obj=networkTask.execute().get();
             students=(ArrayList<JsonMember>) obj;
@@ -45,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+
 
     }
 

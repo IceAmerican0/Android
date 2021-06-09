@@ -60,7 +60,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.tv_code.setText("Code : "+data.get(position).getCode());
         holder.tv_dept.setText("Dept : "+data.get(position).getDept());
         holder.tv_phone.setText("Phone : "+data.get(position).getPhone());
-        holder.webView.loadDataWithBaseURL(null,htmlData(data.get(position).getImage()),"text/html","UTF-8",null);
+        holder.webView.loadDataWithBaseURL(null,htmlData(data.get(position).getImage()),"text/html","utf-8",null);
     }
 
     @Override
@@ -69,8 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public String htmlData(String location){
-        String htmlData="<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>" +
-                "<body><img style = 'width: 100%; height:auto;' src=\"http://192.168.145.42:8080/test/\""+location+"></body></html>";
+        String htmlData="<html><head></head> <body><img style = 'width: 100%; height:auto;' src=\"http://192.168.145.42:8080/test/"+location+"\"></body></html>";
 
         return  htmlData;
     }
