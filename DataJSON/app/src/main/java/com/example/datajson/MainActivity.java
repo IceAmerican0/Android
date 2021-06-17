@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG,"name : "+name);
                 int age=jsonObject1.getInt("age");
                 Log.v(TAG,"age : "+age);
-
+    
                 JSONArray jsonArray1=jsonObject1.getJSONArray("hobbies");
                 for(int j=0;j<jsonArray1.length();j++){
                     String hobby=jsonArray1.getString(j);
